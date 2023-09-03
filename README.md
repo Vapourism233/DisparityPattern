@@ -1,3 +1,13 @@
-# DisparityPattern
+# generate-pattern
 
-This a repo for dealing with the pictures from the stereo camera from bosch.
+円や三角形、四角形を多数含む画像を生成する。
+
+## 要件
+
+1. 円、三角形、四角形が生成できる
+2. 回転できる
+3. サイズを指定できる
+4. 色を変えることができる
+5. 線の種類をけることができる(太さ含む)
+6. オーバーラップを指定できる
+7. 変な形でも上記の要件を満たす。
