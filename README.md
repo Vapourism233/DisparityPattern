@@ -1,13 +1,12 @@
 # generate-pattern
 
-円や三角形、四角形を多数含む画像を生成する。
+Generate three kinds of polygons for disparity matching
 
-## 要件
+## Important
 
-1. 円、三角形、四角形が生成できる
-2. 回転できる
-3. サイズを指定できる
-4. 色を変えることができる
-5. 線の種類をけることができる(太さ含む)
-6. オーバーラップを指定できる
-7. 変な形でも上記の要件を満たす。
+1. Circle, triangle and rectangle is produced by the code.
+2. Rotation supported
+3. Size adjustment allowed
+4. Color change allowed
+5. The width of line changing allowed 
+
