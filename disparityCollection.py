@@ -8,33 +8,6 @@ import multiprocessing
 
 
 inputlist = [
-    "10.1.31.4"
-    # "10.0.31.101",
-    # "10.0.31.102",
-    # "10.0.31.103",
-    # "10.0.31.104",
-    # "10.0.31.105",
-    # "10.0.31.106",
-    # "10.0.31.107",
-    # "10.0.31.108",
-    # "10.0.31.109",
-    # "10.0.31.110",
-    # "10.0.31.111",
-    # "10.0.31.112",
-    # "10.0.31.113",
-    # "10.0.31.114",
-    # "10.0.31.115",
-    # "10.0.31.116",
-    # "10.0.31.117",
-    # "10.0.31.118",
-    # "10.0.31.119",
-    # "10.0.31.120",
-    # "10.0.31.121",
-    # "10.0.31.139",
-    # "10.0.31.140",
-    # "10.0.31.141",
-    # "10.0.31.142",
-    # "10.0.31.143",
 ]
 
 __use_password = False
@@ -50,8 +23,8 @@ def main():
     #cv2.destroyAllWindows()
 
 def save_necessary_images(cam_ip, folderpath):
-    baseurl = "http://" + cam_ip
-    baseurl8081 = "http://" + cam_ip + ":8081"
+    baseurl = "http://" + 
+    baseurl8081 = "http://" + "
     if __use_password:
         set_user_and_pass(baseurl)
         set_user_and_pass(baseurl8081)
@@ -72,7 +45,7 @@ def create_folder()-> str:
     return folder_path
 
 def get_and_save_disparity(ip, folderpath):
-    urlAdress = "http://" + ip  + ":8081/disparityImage"
+    urlAdress = "http://" + ip  + ""
     req = urllib.request.urlopen(urlAdress)
     arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
     imgGrayscale = cv2.imdecode(arr, -1)
@@ -83,7 +56,7 @@ def get_and_save_disparity(ip, folderpath):
 
 def get_and_save_localgrid(ip, folderpath):
     # TODO need to check URL for local grid
-    urlAdress = "http://" + ip  + ":8081/grid"
+    urlAdress = "http://" + ip  + ""
     if __use_password:
         req = requests.get(urlAdress, auth=requests.auth.HTTPBasicAuth(__user, __password))
     else:
@@ -106,7 +79,7 @@ def get_and_save_rawimg(ip, folderpath):
             print("raw image of {} has been saved.".format(ip))
 
 def get_and_save_tiff(ip, folderpath):
-    url = "http://" + ip  + "/snap.tif?Cam=2&rectify=1&monochrome=1&prefetch=1&width=1920&height=1080"
+    url = "http://" + ip  + ""
     subfolder_name = get_subfolder_name(ip)
     now = datetime.datetime.now()
     filename = "tiff_" + now.strftime("%H%M%S_" + subfolder_name + ".tiff")
