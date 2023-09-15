@@ -1,6 +1,6 @@
 # generate-pattern
 
-Generate three kinds of polygons for disparity matching
+Generate three kinds of polygons for disparity matching.
 
 ## Important
 
