@@ -3,6 +3,7 @@ import taichi as ti
 import taichi.math as tm
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
+import math
 
 ti.init(arch=ti.cpu)
 
@@ -25,6 +26,11 @@ desired_samples = 10000
 grid = ti.field(dtype=int, shape=res)
 samples = ti.Vector.field(2, float, shape=desired_samples)
 grid.fill(-1)
+
+def check_distance(l1, l2):
+    if np.sqrt((l1[0] - l2[0])**2 + (l1[1] - l2[1])**2) < 2 * radius:
+        return False
+    return True
 
 @ti.func
 def check_collision(p, index):
@@ -64,22 +70,26 @@ def poisson_disk_sample(desired_samples: int) -> int:
 num_samples = poisson_disk_sample(desired_samples)
 for i in range(np.shape(samples)[0]):
     samples[i] = [samples[i][0] * WIDTH, samples[i][1] * HEIGHT]
-print(samples)
+print(num_samples)
 # gui = ti.GUI("Poisson Disk Sampling", res=800, background_color=0xFFFFFF)
-i = 0
-while(i < num_samples):
-    for j in range(i):
-        if check_collision((samples.to_numpy()[i][0], samples.to_numpy()[i][1]), (samples.to_numpy()[j][0], samples.to_numpy()[j][1])) is False:
+i = 0  # Initialize i
+while i < desired_samples:
+    j = 0  # Initialize j inside the outer loop
+    while j < i:
+        # print(samples.to_numpy()[i])
+        if not check_distance(samples.to_numpy()[i], samples.to_numpy()[j]):
             flag1 += 1
-            if(flag == 100):
+            if flag1 == 100:
                 break
         else:
             circle = Circle((samples.to_numpy()[i][0], samples.to_numpy()[i][1]), radius=0.2, color="black")
             ax.add_patch(circle)
-            i += 1
+        j += 1  # Increment j
+    i += 1  # Increment i outside the inner loop
 
-plt.gca().set_aspect('equal', adjustable='box')
-plt.savefig('.')
+
+# plt.gca().set_aspect('equal', adjustable='box')
+# plt.savefig('.')
 
 # while gui.running:
 #     gui.circles(samples.to_numpy()[:min(count * speed, num_samples)],
