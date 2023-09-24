@@ -8,7 +8,6 @@ import math
 ti.init(arch=ti.cpu)
 
 WIDTH, HEIGHT = 21, 29.7
-flag, flag1 = 0, 0
 
 fig, ax = plt.subplots(figsize=(WIDTH, HEIGHT), dpi=100)
 fig.subplots_adjust(left = 0, bottom= 0, right=1, top = 1)
@@ -73,11 +72,12 @@ for i in range(np.shape(samples)[0]):
 print(num_samples)
 # gui = ti.GUI("Poisson Disk Sampling", res=800, background_color=0xFFFFFF)
 i = 0  # Initialize i
-while i < desired_samples:
+flag, flag1 = 0, 0
+while i < 1000:
     j = 0  # Initialize j inside the outer loop
     while j < i:
         # print(samples.to_numpy()[i])
-        if not check_distance(samples.to_numpy()[i], samples.to_numpy()[j]):
+        if check_distance(samples.to_numpy()[i], samples.to_numpy()[j]):
             flag1 += 1
             if flag1 == 100:
                 break
@@ -88,8 +88,8 @@ while i < desired_samples:
     i += 1  # Increment i outside the inner loop
 
 
-# plt.gca().set_aspect('equal', adjustable='box')
-# plt.savefig('.')
+plt.gca().set_aspect('equal', adjustable='box')
+plt.savefig('img')
 
 # while gui.running:
 #     gui.circles(samples.to_numpy()[:min(count * speed, num_samples)],
