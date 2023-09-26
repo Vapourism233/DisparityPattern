@@ -1,9 +1,19 @@
+# **********************************************************************************************************************
+# Title: Poisson Disk Sampling
+# Author: Yangguang Jiang
+# Date: 2023-09-27
+# Description: This program is used to generate a set of points that are uniformly distributed in a plane.
+# **********************************************************************************************************************
+
 import numpy as np
 import taichi as ti
 import taichi.math as tm
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
 import math
+import time
+
+time_start = time.time()
 
 ti.init(arch=ti.cpu)
 
@@ -27,7 +37,7 @@ samples = ti.Vector.field(2, float, shape=desired_samples)
 grid.fill(-1)
 
 def check_distance(l1, l2):
-    if np.sqrt((l1[0] - l2[0])**2 + (l1[1] - l2[1])**2) < 2 * radius:
+    if np.sqrt((l1[0] - l2[0])**2 + (l1[1] - l2[1])**2) <= 2 * radius:
         return False
     return True
 
@@ -69,24 +79,33 @@ def poisson_disk_sample(desired_samples: int) -> int:
 num_samples = poisson_disk_sample(desired_samples)
 for i in range(np.shape(samples)[0]):
     samples[i] = [samples[i][0] * WIDTH, samples[i][1] * HEIGHT]
-print(num_samples)
 # gui = ti.GUI("Poisson Disk Sampling", res=800, background_color=0xFFFFFF)
 i = 0  # Initialize i
 flag, flag1 = 0, 0
-while i < 1000:
+count = 0
+while i < num_samples:
     j = 0  # Initialize j inside the outer loop
+    distance = []
     while j < i:
         # print(samples.to_numpy()[i])
         if check_distance(samples.to_numpy()[i], samples.to_numpy()[j]):
-            flag1 += 1
-            if flag1 == 100:
-                break
-        else:
+            distance.append(np.sqrt((samples.to_numpy()[i][0] - samples.to_numpy()[j][0])**2 + (samples.to_numpy()[i][1] - samples.to_numpy()[j][1])**2))
+        j += 1  # Increment j inside the inner loop
+    distance.sort()
+    if len(distance) > 0:
+        if distance[0] > 2 * radius:
             circle = Circle((samples.to_numpy()[i][0], samples.to_numpy()[i][1]), radius=0.2, color="black")
             ax.add_patch(circle)
-        j += 1  # Increment j
+            count += 1
+    else:
+        circle = Circle((samples.to_numpy()[i][0], samples.to_numpy()[i][1]), radius=0.2, color="black")
+        ax.add_patch(circle)
+        count += 1
     i += 1  # Increment i outside the inner loop
 
+print("Number of circles: ", count)
+time_end = time.time()
+print(time_end - time_start)
 
 plt.gca().set_aspect('equal', adjustable='box')
 plt.savefig('img')
