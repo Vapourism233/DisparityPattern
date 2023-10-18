@@ -6,9 +6,7 @@ from generate_objects import GenerateObject
 import generate_objects
 
 
-""""保存先のディレクトリ設定"""
-# フォルダを生成するディレクトリのパスを指定
-output_directory = '.'  # your path
+output_directory = '.' 
 
 # 現在の日付と時間を取得
 current_datetime = datetime.datetime.now()
@@ -18,9 +16,9 @@ time_str = current_datetime.strftime('%H-%M-%S')
 
 if __name__ == '__main__':
 
-    WIDTH, HEIGHT = 21, 29.7  # A4サイズ
-    X_RANGE, Y_RANGE = 21, 29.7  # 図形位置の乱数範囲
-    SEED = 42  # 乱数のseed
+    WIDTH, HEIGHT = 21, 29.7  # A4
+    X_RANGE, Y_RANGE = 21, 29.7 
+    SEED = 42 
 
 
     """変更箇所 start"""
